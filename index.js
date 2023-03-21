@@ -11,7 +11,7 @@ import {UserController, CardController} from './controllers/index.js'
 
 mongoose.set('strictQuery', false)
 mongoose
-    .connect("mongodb+srv://flinforever:VoVYoeJCI1XhC4DY@cluster0.vsfqlyj.mongodb.net/?retryWrites=true&w=majority")
+    .connect(process.env.MONGO_URL)
     .then(() =>{
         console.log('bd ok')
     })
@@ -53,7 +53,7 @@ app.post('/cards', checkAuth, cardValidator, handleValidErrors, CardController.c
 app.delete('/cards/:id',checkAuth, CardController.remove)
 app.patch('/cards/:id', checkAuth, cardValidator, handleValidErrors, CardController.update)
 
-app.listen(4000, (err) =>{
+app.listen(process.env.PORT || 4444, (err) =>{
     if (err){
         return console.log(err)
     }
