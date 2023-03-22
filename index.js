@@ -11,7 +11,7 @@ import {UserController, CardController} from './controllers/index.js'
 
 mongoose.set('strictQuery', false)
 mongoose
-    .connect(process.env.MONGO_URL)
+    .connect(process.env.MONGODB_URI)
     .then(() =>{
         console.log('bd ok')
     })
