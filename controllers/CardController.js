@@ -42,27 +42,31 @@ export const getOne = async (req, res) =>{
 }
 export const remove = async (req, res) =>{
     try {
-        const cardId = req.params.id
-
-        CardSchema.findOneAndDelete({
-            _id: cardId,
-        }, (err, doc) =>{
-            if (err){
-                console.log(err)
-                return res.status(500).json({
-                    message: "Не вдалося видалити запис"
-                })
-            }
-            if (!doc){
-                console.log(err)
-                return res.status(404).json({
-                    message: "Не вдалося знайти запис"
-                })
-            }
-            res.json({
-                success: true
-            })
-        })
+        const {id} = req.params
+        // await CardSchema.findOneAndDelete({
+        //     _id: cardId,
+        // }, (err, doc) =>{
+        //     if (err){
+        //         console.log(err)
+        //         return res.status(500).json({
+        //             message: "Не вдалося видалити запис"
+        //         })
+        //     }
+        //     if (!doc){
+        //         console.log(err)
+        //         return res.status(404).json({
+        //             message: "Не вдалося знайти запис"
+        //         })
+        //     }
+        //     res.json({
+        //         success: true
+        //     })
+        // })
+        const product = await CardSchema.findByIdAndDelete(id)
+        if (!product){
+            return res.status(404).json({message: 'Не вдалося знайти запис'})
+        }
+        res.status(200).json(product)
     }
     catch (err){
         console.log(err)
@@ -102,6 +106,25 @@ export const update = async (req, res) =>{
         })
         res.json({
             success: true
+        })
+    } catch (err){
+        console.log(err)
+        res.status(500).json({
+            message: "Не вдалося оновити запис"
+        })
+    }
+}
+export const updateCardLR = async (req, res) =>{
+    try {
+        const cardId = req.params.id
+        await CardSchema.updateOne({
+            _id: cardId,
+        }, {
+            learningRate: req.body.learningRate
+        })
+        res.json({
+            success: true,
+            newvalue: req.body.learningRate
         })
     } catch (err){
         console.log(err)

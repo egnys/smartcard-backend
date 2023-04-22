@@ -15,4 +15,5 @@ export const cardValidator = [
     body('word', "Слово повинно мати більше одного символа").isLength({min: 1}).isString(),
     body('translation', "Слово повинно мати більше одного символа").isLength({min: 1}).isString(),
     body('imageUrl', "Некоректне посилання на картинку").optional().isString(),
+    body('learningRate', "Некоректне значення").optional().isString(),
 ]
