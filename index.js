@@ -13,6 +13,7 @@ import {UserController, CardController} from './controllers/index.js'
 mongoose.set('strictQuery', false)
 
 //  "mongodb+srv://flinforever:VoVYoeJCI1XhC4DY@cluster0.vsfqlyj.mongodb.net/?retryWrites=true&w=majority"
+// 
 mongoose
     .connect(process.env.MONGODB_URL)
     .then(() =>{
